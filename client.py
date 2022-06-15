@@ -12,6 +12,10 @@ global board
 board = [[" " for x in range(3)] for y in range(3)]
 
 
+def __init__(self):
+    self.ready = False
+
+
 def winner(b, l):
     return ((b[0][0] == l and b[0][1] == l and b[0][2] == l) or
             (b[1][0] == l and b[1][1] == l and b[1][2] == l) or
@@ -185,12 +189,21 @@ def withplayer(game_board):
     l2.grid(row=2, column=1)
     gameboard_pl(game_board, l1, l2)
 
+def onlineplayer(game):
+    if not(game.connected()):
+        print("En attente de joueur . . .")
+    else:
+        print("Lancement de la partie")
+
+def connected(self):
+    self.ready
 
 def multiplayerMenu():
     menu = Tk()
-    menu.geometry("250x250")
+    menu.geometry("1024x768")
     menu.title("Tic Tac Toe")
     wpl = partial(withplayer, menu)
+    opl = partial(onlineplayer, menu)
 
     head = Button(menu, text="---Welcome to tic-tac-toe---",
                 activeforeground='red',
@@ -202,7 +215,7 @@ def multiplayerMenu():
                 activebackground="yellow", bg="red",
                 fg="yellow", width=500, font='summer', bd=5)
 
-    B2 = Button(menu, text="Online Game", activeforeground='red',
+    B2 = Button(menu, text="Online Game", command= opl, activeforeground='red',
                 activebackground="yellow", bg="red", fg="yellow",
                 width=500, font='summer', bd=5)
 
@@ -213,7 +226,7 @@ def multiplayerMenu():
 
 def play():
     menu = Tk()
-    menu.geometry("250x250")
+    menu.geometry("1024x768")
     menu.title("Tic Tac Toe")
     wpc = partial(withpc, menu)
     mp = partial(multiplayerMenu)
